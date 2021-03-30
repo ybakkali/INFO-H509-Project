@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:b="bookshop.yolo"
+	targetNamespace="bookshop.yolo"
+	elementFormDefault="qualified">
+
+	<xs:element name="bookshop" type="b:bookshopType"/>
+
+	<xs:complexType name="bookshopType">
+		<xs:all>
+			<xs:element name="scientificDepartment" type="b:scientificType" minOccurs="0"/>
+			<xs:element name="leisureDepartment" type="b:leisureType" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="scientificType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="book" type="b:scientificBookType"/>
+			<xs:element name="journal" type="b:scientificJournalType"/>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="leisureType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="book" type="b:leisureBookType"/>
+			<xs:element name="periodical" type="b:leisurePeriodicalType"/>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="scientificBookType">
+		<xs:all>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element ref="b:authorsEditorsChoice"/>
+			<xs:element name="publisher" type="xs:string"/>
+			<xs:element name="year" type="xs:integer"/>
+			<xs:element name="abstract" type="xs:string" minOccurs="0"/>
+			<xs:element name="edition" type="xs:string" minOccurs="0"/>
+			<xs:element name="ISBN" type="xs:string" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="scientificJournalType">
+		<xs:all>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="volume" type="xs:integer"/>
+			<xs:element name="number" type="xs:integer"/>
+			<xs:element ref="b:authorsEditorsChoice"/>
+			<xs:element name="year" type="xs:integer"/>
+			<xs:element name="publisher" type="xs:string" minOccurs="0"/>
+			<xs:element name="impactFactor" type="b:impactFactorType" minOccurs="0"/>
+			<xs:element name="tableOfContents" type="b:tableOfContentsType"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="leisureBookType">
+		<xs:all>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="authorsList" type="b:authorsListType"/>
+			<xs:element name="publisher" type="xs:string"/>
+			<xs:element name="year" type="xs:integer"/>
+			<xs:element name="edition" type="xs:string" minOccurs="0"/>
+			<xs:element name="pagesNumber" type="xs:integer" minOccurs="0"/>
+		</xs:all>
+		<xs:attribute name="genre" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="thriller|horror|sci/fi|romance|literature"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="leisurePeriodicalType">
+		<xs:all>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="price" type="xs:float"/>
+			<xs:element name="publisher" type="xs:string"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="impactFactorType">
+		<xs:simpleContent>
+			<xs:extension base="xs:integer">
+				<xs:attribute name="year" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="authorsListType">
+		<xs:sequence>
+			<xs:element name="author" type="xs:string" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="editorsListType">
+		<xs:sequence>
+			<xs:element name="editor" type="xs:string" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tableOfContentsType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="article" type="b:articleType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="articleType">
+		<xs:all>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="authorsList" type="b:authorsListType"/>
+			<xs:element ref="b:pairNumberChoice"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="pairType">
+		<xs:all>
+			<xs:element name="end" type="xs:integer"/>
+			<xs:element name="start" type="xs:integer"/>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:element name="authorsEditorsChoice" abstract="true"/>
+	<xs:element name="authorsList" type="b:authorsListType" substitutionGroup="b:authorsEditorsChoice"/>
+	<xs:element name="editorsList" type="b:editorsListType" substitutionGroup="b:authorsEditorsChoice"/>
+
+	<xs:element name="pairNumberChoice" abstract="true"/>
+	<xs:element name="pair" type="b:pairType" substitutionGroup="b:pairNumberChoice"/>
+	<xs:element name="number" type="xs:integer" substitutionGroup="b:pairNumberChoice"/>
+
+</xs:schema>

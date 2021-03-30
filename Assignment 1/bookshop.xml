@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookshop xmlns="bookshop.yolo">
+	<scientificDepartment>
+		<book>
+			<title>aha ha</title>
+			<publisher>aha ha</publisher>
+			<year>2777</year>
+			<authorsList>
+				<author>Amir</author>
+				<author>Yoyo</author>
+			</authorsList>
+		</book>
+
+		<journal>
+			<title>Yo</title>
+			<volume>42</volume>
+			<number>69</number>
+			<year>2778</year>
+			<impactFactor year="1">667</impactFactor>
+			<editorsList>
+				<editor>Amir</editor>
+				<editor>Yoyo</editor>
+			</editorsList>
+			<tableOfContents>
+				<article>
+					<title>lol</title>
+					<authorsList>
+						<author>Amir</author>
+						<author>Yoyo</author>
+					</authorsList>
+					<number>42</number>
+				</article>
+			</tableOfContents>
+		</journal>
+
+		<journal>
+			<title>Yo</title>
+			<volume>42</volume>
+			<number>69</number>
+			<year>2778</year>
+			<impactFactor year="1">667</impactFactor>
+			<editorsList>
+				<editor>Amir</editor>
+				<editor>Yoyo</editor>
+			</editorsList>
+			<tableOfContents>
+				<article>
+					<title>lol</title>
+					<authorsList>
+						<author>Amir</author>
+						<author>Yoyo</author>
+					</authorsList>
+					<pair>
+						<start>8</start>
+						<end>77</end>
+					</pair>
+				</article>
+			</tableOfContents>
+		</journal>
+	</scientificDepartment>
+
+	<leisureDepartment>
+		<book genre="thriller">
+			<title>It's a title</title>
+			<publisher>It's a publisher</publisher>
+			<year>2021</year>
+			<authorsList>
+				<author>Amir</author>
+				<author>Yoyo</author>
+			</authorsList>
+		</book>
+
+		<periodical>
+			<title>It's another title</title>
+			<price>500</price>
+			<publisher>It's another publisher</publisher>
+		</periodical>
+	</leisureDepartment>
+</bookshop>
