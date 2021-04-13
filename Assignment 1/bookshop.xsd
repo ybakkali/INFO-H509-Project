@@ -80,7 +80,7 @@
 
 	<xs:complexType name="impactFactorType">
 		<xs:simpleContent>
-			<xs:extension base="xs:integer">
+			<xs:extension base="xs:float">
 				<xs:attribute name="year" type="xs:string" use="required"/>
 			</xs:extension>
 		</xs:simpleContent>

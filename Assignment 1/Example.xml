@@ -2,6 +2,7 @@
 <bookshop xmlns="bookshop.yolo">
 	<scientificDepartment>
 		<!-- https://www.sciencedirect.com/browse/journals-and-books?subject=computer-science -->
+
 		<!-- Book 1 -->
 		<book>
 			<title>Abstracts and Abstracting</title>
@@ -91,7 +92,7 @@
 		<journal>
 			<title>Advances in Engineering Software</title>
 			<volume>154</volume>
-			<number></number>
+			<number>1</number>
 			<year>2021</year>
 			<impactFactor year="2021">3.844</impactFactor>
 			<editorsList>
@@ -188,96 +189,57 @@
 			</tableOfContents>
 		</journal>
 
-		<!-- Journal -->
+		<!-- Journal 2-->
 		<journal>
-			<title></title>
-			<volume></volume>
-			<number></number>
-			<year></year>
-			<impactFactor year="1">667</impactFactor>
+			<title>Blockchain: Research and Applications</title>
+			<volume>1</volume>
+			<number>2</number>
+			<year>2020</year>
 			<editorsList>
-				<editor></editor>
-				<editor></editor>
+				<editor>Chun Chen</editor>
+				<editor>Chunming Rong</editor>
+				<editor>Xiaohu Yang</editor>
 			</editorsList>
 			<tableOfContents>
 				<article>
-					<title></title>
+					<title>Application and evaluation of payment channel in hybrid
+						decentralized ethereum token exchange</title>
 					<authorsList>
-						<author></author>
-						<author></author>
-					</authorsList>
-					<number></number>
-				</article>
-			</tableOfContents>
-		</journal>
-
-		<!-- Journal -->
-		<journal>
-			<title></title>
-			<volume></volume>
-			<number></number>
-			<year></year>
-			<impactFactor year="1">667</impactFactor>
-			<editorsList>
-				<editor></editor>
-				<editor></editor>
-			</editorsList>
-			<tableOfContents>
-				<article>
-					<title></title>
-					<authorsList>
-						<author></author>
-						<author></author>
-					</authorsList>
-					<number></number>
-				</article>
-			</tableOfContents>
-		</journal>
-
-		<!-- Journal -->
-		<journal>
-			<title></title>
-			<volume></volume>
-			<number></number>
-			<year></year>
-			<impactFactor year="1">667</impactFactor>
-			<editorsList>
-				<editor></editor>
-				<editor></editor>
-			</editorsList>
-			<tableOfContents>
-				<article>
-					<title></title>
-					<authorsList>
-						<author></author>
-						<author></author>
-					</authorsList>
-					<number></number>
-				</article>
-			</tableOfContents>
-		</journal>
-
-		<!-- Journal -->
-		<journal>
-			<title>Yo</title>
-			<volume>42</volume>
-			<number>69</number>
-			<year>2778</year>
-			<impactFactor year="2021">3.844</impactFactor>
-			<editorsList>
-				<editor>Amir</editor>
-				<editor>Yoyo</editor>
-			</editorsList>
-			<tableOfContents>
-				<article>
-					<title>lol</title>
-					<authorsList>
-						<author>Amir</author>
-						<author>Yoyo</author>
+						<author>Xuan Luo</author>
+						<author>Zehua Wang</author>
+						<author>Wei Cai</author>
+						<author>Xiuhua Li</author>
+						<author>Victor C.M. Leung</author>
 					</authorsList>
 					<pair>
-						<start>8</start>
-						<end>77</end>
+						<start>0</start>
+						<end>1</end>
+					</pair>
+				</article>
+				<article>
+					<title>Blockchains for constrained edge devices</title>
+					<authorsList>
+						<author>Antonyo Douglas</author>
+						<author>Richard Holloway</author>
+						<author>Jonathan Lohr</author>
+						<author>Elijah Morgan</author>
+						<author>Khaled Harfoush</author>
+					</authorsList>
+					<pair>
+						<start>4</start>
+						<end>7</end>
+					</pair>
+				</article>
+				<article>
+					<title>ABCDE -agile block chain DApp engineering</title>
+					<authorsList>
+						<author>Lodovica Marchesi</author>
+						<author>Michele Marchesi</author>
+						<author>Roberto Tonelli</author>
+					</authorsList>
+					<pair>
+						<start>2</start>
+						<end>4</end>
 					</pair>
 				</article>
 			</tableOfContents>
@@ -285,20 +247,56 @@
 	</scientificDepartment>
 
 	<leisureDepartment>
-		<book genre="thriller">
-			<title>It's a title</title>
-			<publisher>It's a publisher</publisher>
-			<year>2021</year>
+		<!-- Book 1 -->
+		<book genre="literature">
+			<title>El ocio y la vida intelectual</title>
+			<publisher>Ediciones Rialp</publisher>
+			<year>1998</year>
 			<authorsList>
-				<author>Amir</author>
-				<author>Yoyo</author>
+				<author>Josef Pieper</author>
+			</authorsList>
+			<edition>1st</edition>
+			<pagesNumber>344</pagesNumber>
+		</book>
+
+		<!-- Book 2 -->
+		<book genre="thriller">
+			<title>Ghost Monster</title>
+			<publisher>Leisure Books</publisher>
+			<year>2009</year>
+			<authorsList>
+				<author>Simon Clark</author>
+			</authorsList>
+			<pagesNumber>326</pagesNumber>
+		</book>
+
+		<!-- Book 3 -->
+		<book genre="horror">
+			<title>The Long Last Call</title>
+			<publisher>47North</publisher>
+			<year>2013</year>
+			<authorsList>
+				<author>John Skipp</author>
+			</authorsList>
+			<edition>Reprint</edition>
+		</book>
+
+		<!-- Book 4 -->
+		<book genre="literature">
+			<title>Philosophy of Leisure: Foundations of the good life</title>
+			<publisher>Routledge</publisher>
+			<year>2017</year>
+			<authorsList>
+				<author>Johan Bouwer</author>
+				<author>Marco van Leeuwen</author>
 			</authorsList>
 		</book>
 
+		<!-- Periodical 1 -->
 		<periodical>
-			<title>It's another title</title>
-			<price>500</price>
-			<publisher>It's another publisher</publisher>
+			<title>The Leisure Hour</title>
+			<price>30</price>
+			<publisher>Religious Tract Society</publisher>
 		</periodical>
 	</leisureDepartment>
 </bookshop>
