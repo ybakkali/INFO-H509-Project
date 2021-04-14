@@ -295,7 +295,7 @@
 		<!-- Periodical 1 -->
 		<periodical>
 			<title>The Leisure Hour</title>
-			<price>30</price>
+			<price currency="EUR">30</price>
 			<publisher>Religious Tract Society</publisher>
 		</periodical>
 	</leisureDepartment>

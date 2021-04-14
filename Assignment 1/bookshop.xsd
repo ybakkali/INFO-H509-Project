@@ -32,20 +32,26 @@
 			<xs:element name="title" type="xs:string"/>
 			<xs:element ref="b:authorsEditorsChoice"/>
 			<xs:element name="publisher" type="xs:string"/>
-			<xs:element name="year" type="xs:integer"/>
+			<xs:element name="year" type="xs:nonNegativeInteger"/>
 			<xs:element name="abstract" type="xs:string" minOccurs="0"/>
 			<xs:element name="edition" type="xs:string" minOccurs="0"/>
-			<xs:element name="ISBN" type="xs:string" minOccurs="0"/>
+			<xs:element name="ISBN" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="(978|979)-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
 		</xs:all>
 	</xs:complexType>
 
 	<xs:complexType name="scientificJournalType">
 		<xs:all>
 			<xs:element name="title" type="xs:string"/>
-			<xs:element name="volume" type="xs:integer"/>
-			<xs:element name="number" type="xs:integer"/>
+			<xs:element name="volume" type="xs:nonNegativeInteger"/>
+			<xs:element name="number" type="xs:nonNegativeInteger"/>
 			<xs:element ref="b:authorsEditorsChoice"/>
-			<xs:element name="year" type="xs:integer"/>
+			<xs:element name="year" type="xs:nonNegativeInteger"/>
 			<xs:element name="publisher" type="xs:string" minOccurs="0"/>
 			<xs:element name="impactFactor" type="b:impactFactorType" minOccurs="0"/>
 			<xs:element name="tableOfContents" type="b:tableOfContentsType"/>
@@ -57,9 +63,9 @@
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="authorsList" type="b:authorsListType"/>
 			<xs:element name="publisher" type="xs:string"/>
-			<xs:element name="year" type="xs:integer"/>
+			<xs:element name="year" type="xs:nonNegativeInteger"/>
 			<xs:element name="edition" type="xs:string" minOccurs="0"/>
-			<xs:element name="pagesNumber" type="xs:integer" minOccurs="0"/>
+			<xs:element name="pagesNumber" type="xs:nonNegativeInteger" minOccurs="0"/>
 		</xs:all>
 		<xs:attribute name="genre" use="required">
 			<xs:simpleType>
@@ -73,15 +79,35 @@
 	<xs:complexType name="leisurePeriodicalType">
 		<xs:all>
 			<xs:element name="title" type="xs:string"/>
-			<xs:element name="price" type="xs:float"/>
+			<xs:element name="price" type="b:priceType"/>
 			<xs:element name="publisher" type="xs:string"/>
 		</xs:all>
 	</xs:complexType>
 
+	<xs:complexType name="priceType">
+		<xs:simpleContent>
+			<xs:extension base="b:positiveFloat">
+				<xs:attribute name="currency" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="EUR|USD|GBP|JPY"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="positiveFloat">
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:complexType name="impactFactorType">
 		<xs:simpleContent>
 			<xs:extension base="xs:float">
-				<xs:attribute name="year" type="xs:string" use="required"/>
+				<xs:attribute name="year" type="xs:nonNegativeInteger" use="required"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -114,8 +140,8 @@
 
 	<xs:complexType name="pairType">
 		<xs:all>
-			<xs:element name="end" type="xs:integer"/>
-			<xs:element name="start" type="xs:integer"/>
+			<xs:element name="end" type="xs:nonNegativeInteger"/>
+			<xs:element name="start" type="xs:nonNegativeInteger"/>
 		</xs:all>
 	</xs:complexType>
 
@@ -125,6 +151,6 @@
 
 	<xs:element name="pairNumberChoice" abstract="true"/>
 	<xs:element name="pair" type="b:pairType" substitutionGroup="b:pairNumberChoice"/>
-	<xs:element name="number" type="xs:integer" substitutionGroup="b:pairNumberChoice"/>
+	<xs:element name="number" type="xs:nonNegativeInteger" substitutionGroup="b:pairNumberChoice"/>
 
 </xs:schema>
