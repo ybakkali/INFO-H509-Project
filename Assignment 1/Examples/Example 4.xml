@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookshop xmlns="bookshop">
+  <leisureDepartment>
+    <!-- Book 1 -->
+    <book genre="literature">
+      <title>El ocio y la vida intelectual</title>
+      <publisher>Ediciones Rialp</publisher>
+      <year>1998</year>
+      <authorsList>
+        <author>Josef Pieper</author>
+      </authorsList>
+      <edition>1st</edition>
+      <pagesNumber>344</pagesNumber>
+    </book>
+
+    <!-- Book 2 -->
+    <book genre="thriller">
+      <title>Ghost Monster</title>
+      <publisher>Leisure Books</publisher>
+      <year>2009</year>
+      <authorsList>
+        <author>Simon Clark</author>
+      </authorsList>
+      <pagesNumber>326</pagesNumber>
+    </book>
+
+    <!-- Book 3 -->
+    <book genre="horror">
+      <title>The Long Last Call</title>
+      <publisher>47North</publisher>
+      <year>2013</year>
+      <authorsList>
+        <author>John Skipp</author>
+      </authorsList>
+      <edition>Reprint</edition>
+    </book>
+
+    <!-- Book 4 -->
+    <book genre="literature">
+      <title>Philosophy of Leisure: Foundations of the good life</title>
+      <publisher>Routledge</publisher>
+      <year>2017</year>
+      <authorsList>
+        <author>Johan Bouwer</author>
+        <author>Marco van Leeuwen</author>
+      </authorsList>
+    </book>
+  </leisureDepartment>
+</bookshop>

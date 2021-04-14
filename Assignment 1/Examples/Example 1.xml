@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookshop xmlns="bookshop">
+	<scientificDepartment>
+		<!-- https://www.sciencedirect.com/browse/journals-and-books?subject=computer-science -->
+
+		<!-- Book 1 -->
+		<book>
+			<title>Abstracts and Abstracting</title>
+			<publisher>Chandos Publishing</publisher>
+			<year>2010</year>
+			<authorsList>
+				<author>Tibor Koltay</author>
+			</authorsList>
+		</book>
+
+		<!-- Book 2 -->
+		<book>
+			<title>Academic Branch Libraries in Changing Times</title>
+			<publisher>Chandos Publishing</publisher>
+			<year>2011</year>
+			<authorsList>
+				<author>Nevenka Zdravkovska</author>
+			</authorsList>
+			<abstract>
+				Are academic branch libraries going to be extinct in the near future? In
+				these difficult economic times, when collections are digitized rapidly,
+				is there still a need for a separate unit within proximity to the
+				department, school, or college with a subject-based or subject-specific
+				collection? Academic Branch Libraries in Changing Times gives a brief
+				historical overview of the role of a branch academic library. It reviews
+				the current situation from a practitioner’s point of view and suggests
+				solutions for the future.
+			</abstract>
+			<ISBN>978-1-84334-630-2</ISBN>
+		</book>
+
+		<!-- Book 3 -->
+		<book>
+			<title>Academic and Professional Publishing</title>
+			<publisher>Chandos Publishing</publisher>
+			<year>2012</year>
+			<editorsList>
+				<editor>Robert Campbell</editor>
+				<editor>Ed Pentz</editor>
+				<editor>Ian Borthwick</editor>
+			</editorsList>
+			<ISBN>978-1-84334-669-2</ISBN>
+		</book>
+
+		<!-- Book 4 -->
+		<book>
+			<title>Advanced Graphics Programming Using OpenGL</title>
+			<publisher>Morgan Kaufmann</publisher>
+			<year>2005</year>
+			<authorsList>
+				<author>TOM McREYNOLDS</author>
+				<author>DAVID BLYTHE</author>
+			</authorsList>
+			<edition>1st</edition>
+			<ISBN>978-1-55860-659-3</ISBN>
+		</book>
+
+		<!-- Book 5 -->
+		<book>
+			<title>Acoustic Signals and Hearing</title>
+			<publisher>Academic Press</publisher>
+			<year>2020</year>
+			<authorsList>
+				<author>Mikio Tohyama</author>
+			</authorsList>
+			<abstract>
+				Understanding acoustics – the science of sound -- is essential for audio
+				and communications engineers working in media technology. It is also
+				extremely important for engineers to understand what allows a sound to
+				be heard in the way it is, what makes speech intelligible, and how a
+				particular sound is recognized within a multitude of sounds. Acoustic
+				Signals and Hearing: A Time-Envelope and Phase Spectral Approach is
+				unique in presenting the principles of sound and sound fields from
+				the perspective of hearing, particularly through the use of speech and
+				musical sounds.
+
+				Acoustic Signals and Hearing: A Time-Envelope and Phase Spectral
+				Approach is an ideal resource for researchers and acoustic engineers
+				working in today’s environment of media technology, and graduate
+				students studying acoustics, audio engineering, and signal processing.
+			</abstract>
+			<edition>1st</edition>
+			<ISBN>978-0-12-816391-7</ISBN>
+		</book>
+
+	</scientificDepartment>
+</bookshop>

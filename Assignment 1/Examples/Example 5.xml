@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookshop xmlns="bookshop">
+  <leisureDepartment>
+    <!-- Periodical 1 -->
+    <periodical>
+      <title>The Leisure Hour</title>
+      <price currency="EUR">30</price>
+      <publisher>Religious Tract Society</publisher>
+    </periodical>
+  </leisureDepartment>
+</bookshop>

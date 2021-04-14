@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookshop xmlns="bookshop">
+	<scientificDepartment>
+		<!-- https://www.sciencedirect.com/browse/journals-and-books?subject=computer-science -->
+
+    <!-- Journal 1-->
+    <journal>
+      <title>Advances in Engineering Software</title>
+      <volume>154</volume>
+      <number>1</number>
+      <year>2021</year>
+      <impactFactor year="2021">3.844</impactFactor>
+      <editorsList>
+        <editor>Ahmed K. Noor</editor>
+        <editor>Barry H.V. Topping</editor>
+      </editorsList>
+      <tableOfContents>
+        <article>
+          <title>Comparative analysis of image projection-based descriptors in
+            Siamese neural networks</title>
+          <authorsList>
+            <author>Gábor Kertész</author>
+            <author>Sándor Szénási</author>
+            <author>Zoltán Vámossy</author>
+          </authorsList>
+          <number>102963</number>
+        </article>
+        <article>
+          <title>ISO 10303 AP209—Why and how to embed nonlinear FEA</title>
+          <authorsList>
+            <author>Remi Lanza</author>
+            <author>Jochen Haenisch</author>
+            <author>Kjell Bengtsson</author>
+            <author>Terje Rølvåg</author>
+          </authorsList>
+          <number>102976</number>
+        </article>
+        <article>
+          <title>The particle-attached element interpolation for density
+            correction in smoothed particle hydrodynamics</title>
+          <authorsList>
+            <author>Hyun-Duk Seo</author>
+            <author>Hyung-Jun Park</author>
+            <author>Ji-In Kim</author>
+            <author>Phill Seung Lee</author>
+          </authorsList>
+          <number>102972</number>
+        </article>
+        <article>
+          <title>Strain investigation of infill frames using FEA package MSC
+            NASTRAN</title>
+          <authorsList>
+            <author>Golla Swamy Yadav</author>
+            <author>P. Anuradha</author>
+          </authorsList>
+          <number>102975</number>
+        </article>
+        <article>
+          <title>ELSA: An efficient, adaptive Ensemble Learning-based Sampling
+            Approach</title>
+          <authorsList>
+            <author>Maria Böttcher</author>
+            <author>Alexander Fuchs</author>
+            <author>Ferenc Leichsenring</author>
+            <author>Wolfgang Graf</author>
+            <author>Michael Kaliske</author>
+          </authorsList>
+          <number>102974</number>
+        </article>
+        <article>
+          <title>Numerical simulation platform for slab track systems subjected
+            to a moving vehicle</title>
+          <authorsList>
+            <author>Lei Xu</author>
+            <author>Zheng Li</author>
+            <author>Wen Bai</author>
+            <author>Liu Pan</author>
+            <author>Zhiwu Yu</author>
+          </authorsList>
+          <number>102984</number>
+        </article>
+        <article>
+          <title>A hybrid Harris hawks-moth-flame optimization algorithm
+            including fractional-order chaos maps and evolutionary population
+            dynamics</title>
+          <authorsList>
+            <author>Mohamed Abd Elaziz</author>
+            <author>Dalia Yousri</author>
+            <author>Seyedali Mirjalili</author>
+          </authorsList>
+          <number>102973</number>
+        </article>
+        <article>
+          <title>Distributed Microscopic Traffic Simulation with
+            Human-in-the-Loop Enabled by Virtual Reality Technologies</title>
+          <authorsList>
+            <author>Mahmud Hasan</author>
+            <author>Daniel Perez</author>
+            <author>Yuzhong Shen</author>
+            <author>Hong Yang</author>
+          </authorsList>
+          <number>102985</number>
+        </article>
+      </tableOfContents>
+    </journal>
+
+    <!-- Journal 2-->
+    <journal>
+      <title>Blockchain: Research and Applications</title>
+      <volume>1</volume>
+      <number>2</number>
+      <year>2020</year>
+      <editorsList>
+        <editor>Chun Chen</editor>
+        <editor>Chunming Rong</editor>
+        <editor>Xiaohu Yang</editor>
+      </editorsList>
+      <tableOfContents>
+        <article>
+          <title>Application and evaluation of payment channel in hybrid
+            decentralized ethereum token exchange</title>
+          <authorsList>
+            <author>Xuan Luo</author>
+            <author>Zehua Wang</author>
+            <author>Wei Cai</author>
+            <author>Xiuhua Li</author>
+            <author>Victor C.M. Leung</author>
+          </authorsList>
+          <pair>
+            <start>0</start>
+            <end>1</end>
+          </pair>
+        </article>
+        <article>
+          <title>Blockchains for constrained edge devices</title>
+          <authorsList>
+            <author>Antonyo Douglas</author>
+            <author>Richard Holloway</author>
+            <author>Jonathan Lohr</author>
+            <author>Elijah Morgan</author>
+            <author>Khaled Harfoush</author>
+          </authorsList>
+          <pair>
+            <start>4</start>
+            <end>7</end>
+          </pair>
+        </article>
+        <article>
+          <title>ABCDE -agile block chain DApp engineering</title>
+          <authorsList>
+            <author>Lodovica Marchesi</author>
+            <author>Michele Marchesi</author>
+            <author>Roberto Tonelli</author>
+          </authorsList>
+          <pair>
+            <start>2</start>
+            <end>4</end>
+          </pair>
+        </article>
+      </tableOfContents>
+    </journal>
+  </scientificDepartment>
+</bookshop>
