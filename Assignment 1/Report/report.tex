@@ -86,13 +86,11 @@ A bookshop has two different departments a scientific and a leisure one and offe
 The representations in the appendix show the schema in two different formats, with a tree and with relations.
 There are some non-interesting hypotheses, such as when an element must be present at least once or not. The two formats clearly show them. Therefore, in this section will only be seen the hypotheses that are worth talking about.
 
-% TODO
-
 \subsection{XSD Version}
 In order for the schema to be supported by the maximum number of systems, it has been decided to use XSD version \texttt{1.0}.
 
 \subsection{ISBN}
-The International Standard Book Number is used to give to each book a unique identifier. For the sake of simplicity, it has been decided to only support ISBN 13. ISBN is composed of 13 digits, one of which is a checksum digit. Due to the fact that XSD version \texttt{1.0} is used, the checksum digit cannot be checked, only the format is.
+The International Standard Book Number is used to give to each book a unique identifier. For the sake of simplicity, it has been decided to only support ISBN 13. ISBN is composed of 13 digits distributed in five parts separated by a hyphen, one of which is a checksum digit. Due to the fact that XSD version \texttt{1.0} is used, the checksum digit cannot be checked, only the format is.
 
 \subsection{Currency}
 It has been decided for the element price to have an attribute currency that shows in which currency the price is.
@@ -155,8 +153,8 @@ Examples 1, 2 and 3 show that a bookshop can have only the science department. O
     \item scientificType $\to$ (book, scientificBookType)*, (journal, scientificJournalType)*
     \item leisureType $\to$ (book, leisureBookType)*, (periodical, leisurePeriodicalType)*
 
-    \item scientificBookType $\to$ (title, string), (authorsList, authorsListType) | (editorsList, editorsListType), (publisher, string), (year, nonNegativeInteger), (abstract, string)?, (edition, string)?, (ISBN, ISBN)?
-    \item scientificJournalType $\to$ (title, string), (volume, nonNegativeInteger), (number, nonNegativeInteger), (authorsList, authorsListType) | (editorsList, editorsListType), (year, nonNegativeInteger), (publisher, string)?, (impactFactor, impactFactorType)?, (tableOfContents, tableOfContentsType)?
+    \item scientificBookType $\to$ (title, string), (authorsList, authorsListType) $|$ (editorsList, editorsListType), (publisher, string), (year, nonNegativeInteger), (abstract, string)?, (edition, string)?, (ISBN, ISBN)?
+    \item scientificJournalType $\to$ (title, string), (volume, nonNegativeInteger), (number, nonNegativeInteger), (authorsList, authorsListType) $|$ (editorsList, editorsListType), (year, nonNegativeInteger), (publisher, string)?, (impactFactor, impactFactorType)?, (tableOfContents, tableOfContentsType)
     \item leisureBookType $\to$ (title, string), (authorsList, authorsListType), (publisher, string), (year, nonNegativeInteger), (genre, genreType), (edition, string)?, (pagesNumber, nonNegativeInteger)?
     \item leisurePeriodicalType $\to$ (title, string), (price, priceType), (publisher, string)
 
@@ -166,7 +164,7 @@ Examples 1, 2 and 3 show that a bookshop can have only the science department. O
     \item tableOfContentsType $\to$ (article, articleType)+
     \item priceType $\to$ (currency, currencyType)
 
-    \item articleType $\to$ (title, string), (authorsList, authorsListType), (pair, pairType) | (number, nonNegativeInteger)
+    \item articleType $\to$ (title, string), (authorsList, authorsListType), (pair, pairType) $|$ (number, nonNegativeInteger)
 
     \item pairType $\to$ (start, nonNegativeInteger), (end, nonNegativeInteger)
 
@@ -245,7 +243,7 @@ The blue rectangles mean a choice between two elements, in other words one of th
             [$<$leisureBookType$>$\\book*
                 [$<$string$>$\\title]
                 [$<$authorsListType$>$\\authorsList
-                    [$<$string$>$\\author*]
+                    [$<$string$>$\\author+]
                 ]
                 [$<$string$>$\\publisher]
                 [$<$nonNegativeInteger$>$\\year]
