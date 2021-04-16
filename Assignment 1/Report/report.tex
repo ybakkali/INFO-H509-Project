@@ -1,0 +1,270 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage{hhline}
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,
+                backgrounds,
+                fit}
+\usepackage{forest}
+\usepackage{algorithmic}
+%\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage{setspace}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{indentfirst}
+\usepackage{changepage}
+\usepackage{forest}
+
+\usetikzlibrary{shadows}
+
+\lstset
+{
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=lines,
+    columns=fullflexible,
+    basicstyle=\ttfamily,
+}
+
+\onehalfspacing
+
+\geometry{top=100px, bottom=100px, left=75px, right=75px}
+
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+
+        \Huge
+        \textbf{XML and Web Technologies}
+        \vspace{0.25cm}
+
+        \LARGE
+        \textbf{INFO-H509}
+
+        \vspace{0.25cm}
+        \LARGE
+        \text{XML Schema Definition}
+
+        \vspace{0.25cm}
+        \textit{16 April 2021}
+
+        \vspace{3cm}
+           \Large
+        \textbf{BAKKALI Yahya : 000445166 \\}
+        \textbf{HAUWAERT Maxime : 000461714 \\}
+
+        \vspace{2cm}
+
+        \textsc{Université Libre de Bruxelles (ULB)}
+
+
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+A bookshop has two different departments a scientific and a leisure one and offers two types of products for each of them. The goal of this project is to give the bookshop a way to represent the information about its products in XML and to verify that all information is in accordance with the rules described in the assignment. In this report, all the hypotheses that have been made as well as several examples will be seen.
+
+\section{XML Schema}
+The representations in the appendix show the schema in two different formats, with a tree and with relations.
+There are some non-interesting hypotheses, such as when an element must be present at least once or not. The two formats clearly show them. Therefore, in this section will only be seen the hypotheses that are worth talking about.
+
+% TODO
+
+\subsection{XSD Version}
+In order for the schema to be supported by the maximum number of systems, it has been decided to use XSD version \texttt{1.0}.
+
+\subsection{ISBN}
+The International Standard Book Number is used to give to each book a unique identifier. For the sake of simplicity, it has been decided to only support ISBN 13. ISBN is composed of 13 digits, one of which is a checksum digit. Due to the fact that XSD version \texttt{1.0} is used, the checksum digit cannot be checked, only the format is.
+
+\subsection{Currency}
+It has been decided for the element price to have an attribute currency that shows in which currency the price is.
+The currency is in its ISO 4217 code format and for the sake of simplicity only the following currencies are supported : EUR for Euro, USD for United States dollar, GBP for Pound sterling, JPY for Japanese yen.
+
+\subsection{Genre}
+The genre is an attribute that can take the following values : thriller, horror, sci/fi, romance and literature.
+
+\subsection{Price}
+It has been decided that the price should have as a value an integer or a decimal number that is greater or equal to 0. The decimal number is represented with a dot between the whole number part and the fractional part.
+
+\subsection{Volume}
+It has been decided, for the sake of simplicity that the volume is identified with Arabic numerals.
+
+
+\section{Miscellaneous}
+
+It was wanted not to constrain the order in which the elements are placed as long as they are present. But in a special case a problem arose, when an element can be replaced by another, but both cannot be present at the same time. The naivest way to achieve this was to put the two elements in a \textbf{choice} in an \textbf{all} but XSD does not allow that. So, in order to do that it was needed to create a dummy abstract element and to include the two elements in the substitution group of the dummy element.
+
+
+\section{XML Examples}
+
+Several examples that are valid with respect to the XSD have been submitted. Each of these examples represents a different case from the other examples. The description of each example is given below.
+
+Examples 1, 2 and 3 show that a bookshop can have only the science department. On the other hand, examples 4, 5 and 6 represent a bookshop where only the leisure department is present. However, example 7 contains both departments.
+
+\begin{itemize}
+    \item Example 1 : This example contains one type of product from the science department which is the book. The format of a book can take many forms. Thus, the example contains 5 books each representing a possible form:
+    \begin{itemize}
+        \item Book 1 : This format represents a book that contains only the mandatory information.
+        \item Book 2 : This format represents a book that contains the mandatory information and some optional information.
+        \item Book 3 : This format represents a book that contains a list of editors.
+        \item Book 4 : This format represents a book that contains a list of authors.
+        \item Book 5 : This format represents a book that contains the mandatory information and all optional information.
+    \end{itemize}
+    \item Example 2 : This example contains the journal product of the scientific department. Two journal formats are given:
+    \begin{itemize}
+        \item Journal 1 : This format represents a journal that contains mandatory information and optional information about the impact factor and article number.
+        \item Journal 2 : This format represents a journal that contains only the mandatory information.
+    \end{itemize}
+    \item Example 3 : This example combines examples 1 and 2 to have a bookshop containing a scientific department that contains all its product types.
+    \item Example 4 : This example contains one type of product from the leisure department which is the book. The format of a book can take many forms. Thus, the example contains some books possible form:
+    \begin{itemize}
+        \item Book 1 : This format represents a book that contains the mandatory information and all optional information.
+        \item Book 2 and 3 : This format represents a book that contains the mandatory information with some possible values for its genre and some optional information.
+        \item Book 4 : This format represents a book that contains only the mandatory information.
+    \end{itemize}
+    \item Example 5 : This example contains the periodical product of the leisure department. Only one format is approved, and it contains only the mandatory information.
+    \item Example 6 : This example merges examples 4 and 5 to have a bookshop with a leisure department that contains all its product types.
+    \item Example 7 : Here is a complete example containing both departments with the possible formats explained above for all different products.
+\end{itemize}
+
+\appendix
+
+\section{Relations}
+
+\begin{itemize}
+    \item bookshopType $\to$ (scientificDepartment, scientificType)?, (leisureDepartment, leisureType)?
+
+    \item scientificType $\to$ (book, scientificBookType)*, (journal, scientificJournalType)*
+    \item leisureType $\to$ (book, leisureBookType)*, (periodical, leisurePeriodicalType)*
+
+    \item scientificBookType $\to$ (title, string), (authorsList, authorsListType) | (editorsList, editorsListType), (publisher, string), (year, nonNegativeInteger), (abstract, string)?, (edition, string)?, (ISBN, ISBN)?
+    \item scientificJournalType $\to$ (title, string), (volume, nonNegativeInteger), (number, nonNegativeInteger), (authorsList, authorsListType) | (editorsList, editorsListType), (year, nonNegativeInteger), (publisher, string)?, (impactFactor, impactFactorType)?, (tableOfContents, tableOfContentsType)?
+    \item leisureBookType $\to$ (title, string), (authorsList, authorsListType), (publisher, string), (year, nonNegativeInteger), (genre, genreType), (edition, string)?, (pagesNumber, nonNegativeInteger)?
+    \item leisurePeriodicalType $\to$ (title, string), (price, priceType), (publisher, string)
+
+    \item authorsListType $\to$ (author, string)+
+    \item editorsListType $\to$ (editor, string)+
+    \item impactFactorType $\to$ (year, nonNegativeInteger)
+    \item tableOfContentsType $\to$ (article, articleType)+
+    \item priceType $\to$ (currency, currencyType)
+
+    \item articleType $\to$ (title, string), (authorsList, authorsListType), (pair, pairType) | (number, nonNegativeInteger)
+
+    \item pairType $\to$ (start, nonNegativeInteger), (end, nonNegativeInteger)
+
+\end{itemize}
+
+
+\section{Tree}
+
+
+The blue rectangles mean a choice between two elements, in other words one of the two should be present but not both.
+
+\eject \pdfpagewidth 13in \pdfpageheight 18in
+\thispagestyle{empty}
+
+\begin{forest}
+  for tree={
+    grow'=0,
+    draw,
+    align=c,
+    font=\sffamily,
+    rounded corners,
+    parent anchor=east,
+    child anchor=west,
+    edge path={%
+      \noexpand\path [\forestoption{edge}] (!u.parent anchor) -- ++(5pt,0) |- (.child anchor)\forestoption{edge label};
+    }
+  },
+  highlight/.style={
+    thick,
+    font=\sffamily\bfseries
+  }[$<$bookshopType$>$\\bookshop
+        [$<$scientificType$>$\\scientificDepartment?
+            [$<$scientificBookType$>$\\book*
+                [$<$string$>$\\title]
+                [$<$authorsListType$>$\\authorsList, name=a1
+                    [$<$string$>$\\author+]
+                ]
+                [$<$editorsListType$>$\\editorsList, name=e1
+                    [$<$string$>$\\editor+]
+                ]
+                [$<$string$>$\\publisher]
+                [$<$nonNegativeInteger$>$\\year]
+                [$<$string$>$\\abstract?]
+                [$<$string$>$\\edition?]
+                [$<$ISBNType$>$\\ISBN?]
+            ]
+            [$<$scientificJournalType$>$\\journal*
+                [$<$string$>$\\title]
+                [$<$nonNegativeInteger$>$\\volume]
+                [$<$nonNegativeInteger$>$\\number]
+                [$<$authorsListType$>$\\authorsList, name=a2
+                    [$<$string$>$\\author+]
+                ]
+                [$<$editorsListType$>$\\editorsList, name=e2
+                    [$<$string$>$\\editor+]
+                ]
+                [$<$nonNegativeInteger$>$\\year]
+                [$<$string$>$\\publisher?]
+                [$<$impactFactorType$>$\\impactFactor?]
+                [$<$tableOfContentsType$>$\\tableOfContents
+                    [$<$articleType$>$\\article+
+                        [$<$string$>$\\title]
+                        [$<$authorsListType$>$\\authorsList
+                            [$<$string$>$\\author+]
+                        ]
+                        [$<$pairType$>$\\pair, name=p1
+                            [$<$nonNegativeInteger$>$\\start]
+                            [$<$nonNegativeInteger$>$\\end]
+                        ]
+                        [$<$nonNegativeInteger$>$\\number, name=n1]
+                    ]
+                ]
+            ]
+        ]
+        [$<$leisureType$>$\\leisureDepartment?
+            [$<$leisureBookType$>$\\book*
+                [$<$string$>$\\title]
+                [$<$authorsListType$>$\\authorsList
+                    [$<$string$>$\\author*]
+                ]
+                [$<$string$>$\\publisher]
+                [$<$nonNegativeInteger$>$\\year]
+                [$<$string$>$\\edition?]
+                [$<$nonNegativeInteger$>$\\pagesNumber?]
+                [$<$genreType$>$\\genre]
+            ]
+            [$<$leisurePeriodicalType$>$\\periodical*
+                [$<$string$>$\\title]
+                [$<$priceType$>$\\price
+                    [$<$currencyType$>$\\currency]
+                ]
+                [$<$string$>$\\publisher]
+            ]
+        ]
+    ]
+    \node[draw=blue, ultra thick, fit=(a1) (e1)] {};
+    \node[draw=blue, ultra thick, fit=(a2) (e2)] {};
+    \node[draw=blue, ultra thick, fit=(p1) (n1)] {};
+\end{forest}
+
+\end{document}
