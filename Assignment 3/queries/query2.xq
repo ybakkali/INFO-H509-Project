@@ -1,17 +1,10 @@
-<all_proceedings>
-  {
-    for $proc in /dblp/proceedings
-    let $crossrefs := string($proc/@key)
-    return
-      <proceedings>
-        <proc_title>{$proc/title/text()}</proc_title>
-        {
-          for $crossref in $crossrefs
-          let $articles := /dblp/*[crossref=$crossref]
-          for $article in $articles
-          return
-            <title>{$article/title/text()}</title>
-        }
-      </proceedings>
-  }
-</all_proceedings>
+declare option saxon:output "indent=yes";
+
+for $proc in /dblp/proceedings
+return element proceedings
+{
+  <proc_title>{data($proc/title)}</proc_title>,
+  for $crossref in data($proc/@key), $article in /dblp/*[crossref=$crossref]
+  return
+    <title>{data($article/title)}</title>
+}
