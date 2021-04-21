@@ -3,19 +3,19 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:f="dblp">
 
-	<xsl:function name="f:removeIllegalCharacters">
+	<xsl:function name="f:toAlphaNumeric">
 		<xsl:param name="s"/>
-		<xsl:value-of select="replace($s, '[&#x007F;-&#x009F;]', '=')"/>
-	</xsl:function>
-
-	<xsl:function name="f:getLastname">
-		<xsl:param name="fullname"/>
-		<xsl:value-of select="substring-after($fullname, ' ')"/>
+		<xsl:value-of select="replace($s, '[^a-zA-Z0-9_ ]' ,'=')"/>
 	</xsl:function>
 
 	<xsl:function name="f:getFirstname">
 		<xsl:param name="fullname"/>
 		<xsl:value-of select="substring-before($fullname, ' ')"/>
+	</xsl:function>
+
+	<xsl:function name="f:getLastname">
+		<xsl:param name="fullname"/>
+		<xsl:value-of select="substring-after($fullname, ' ')"/>
 	</xsl:function>
 
 	<xsl:function name="f:getFirstLetterOfLastname">
@@ -25,6 +25,7 @@
 
 	<xsl:function name="f:getPath">
 		<xsl:param name="fullname"/>
+		<xsl:variable name="fullname" select="f:toAlphaNumeric($fullname)"/>
 		<xsl:variable name="lastname" select="f:getLastname($fullname)"/>
 		<xsl:variable name="firstname" select="f:getFirstname($fullname)"/>
 		<xsl:variable name="flol" select="lower-case(substring($lastname,1,1))"/>
@@ -32,54 +33,49 @@
 	</xsl:function>
 
 
+	<xsl:character-map name="illegalCharacters">
+		<xsl:output-character character="&#150;" string="_"/>
+	</xsl:character-map>
+
 	<xsl:template match="/">
-		<html>
-			<head><title>DBLP index</title></head>
-			<body>
-				<h1>Authors and editors</h1>
-				<xsl:variable name="publications" select="/dblp/*"/>
+		<xsl:variable name="publications" select="/dblp/*"/>
 
-				<xsl:for-each select="distinct-values(/dblp/*/(author | editor))">
-					<xsl:sort select="f:removeIllegalCharacters(.)"/>
-					<xsl:variable name="originalFullname" select="."/>
-					<xsl:variable name="fullname" select="f:removeIllegalCharacters(.)"/>
+		<xsl:for-each select="distinct-values(/dblp/*/(author | editor))">
+			<xsl:variable name="originalFullname" select="."/>
 
-					<h3><a href="{concat('dblp', f:getPath($fullname))}"><xsl:value-of select="$fullname"/></a></h3>
-					<xsl:variable name="current_publications" select="$publications[(author | editor)=$originalFullname]"/>
-					
-					<xsl:call-template name="construct_author_page">
-						<xsl:with-param name="author" select="$originalFullname"/>
-						<xsl:with-param name="unsorted_author_publications" select="$current_publications"/>
-					</xsl:call-template>
+			<xsl:variable name="current_publications" select="$publications[(author | editor)=$originalFullname]"/>
+			
+			<xsl:call-template name="construct_author_page">
+				<xsl:with-param name="author" select="$originalFullname"/>
+				<xsl:with-param name="author_publications" select="$current_publications"/>
+			</xsl:call-template>
 
-				</xsl:for-each>
-			</body>
-		</html>
+		</xsl:for-each>
+
 	</xsl:template>
 
-	<xsl:template name="construct_author_page" >
+	<xsl:template name="construct_author_page">
 		<xsl:param name="author"/>
-		<xsl:param name="unsorted_author_publications"/>
+		<xsl:param name="author_publications"/>
 
-		<xsl:variable name="fullname" select="f:removeIllegalCharacters($author)"/>
-		<xsl:result-document href="{concat('dblp', f:getPath($fullname))}" version="1.0" encoding="UTF-8" method="html" indent="yes">
-		
-		<xsl:variable name="author_publications" as="element()+">
-			<xsl:perform-sort select="$unsorted_author_publications">
-				<xsl:sort select="year" data-type="number" order="descending"/>
-				<xsl:sort select="title" order="ascending"/>
-			</xsl:perform-sort>
-		</xsl:variable>
+		<xsl:result-document href="{concat('dblp', f:getPath($author))}" version="1.0" encoding="UTF-8" method="html" indent="yes" use-character-maps="illegalCharacters">
+
+			<xsl:variable name="author_publications" as="element()+">
+				<xsl:perform-sort select="$author_publications">
+					<xsl:sort select="year" data-type="number" order="descending"/>
+					<xsl:sort select="title" order="ascending"/>
+				</xsl:perform-sort>
+			</xsl:variable>
 
 			<html>
 				<head>
 					<title>
-						<xsl:value-of select="$fullname"/>
+						<xsl:value-of select="$author"/>
 					</title>
 				</head>
 				<body>
 					<h1>
-						<xsl:value-of select="$fullname"/>
+						<xsl:value-of select="$author"/>
 					</h1>
 
 					<xsl:call-template name="construct_table">
@@ -96,7 +92,7 @@
 		</xsl:result-document>
 	</xsl:template>
 
-	<xsl:template name="construct_table" >
+	<xsl:template name="construct_table">
 		<xsl:param name="author"/>
 		<xsl:param name="author_publications"/>
 		<p>
@@ -119,9 +115,8 @@
 						</td>
 						<td>
 							<xsl:for-each select="author | editor">
-								<xsl:variable name="tempAuthor" select="f:removeIllegalCharacters(.)"/>
-								<a href="{concat('..', f:getPath($tempAuthor))}">
-									<xsl:value-of select="$tempAuthor"/>
+								<a href="{concat('..', f:getPath(.))}">
+									<xsl:value-of select="."/>
 								</a>,
 							</xsl:for-each>
 
@@ -189,19 +184,18 @@
 		</p>
 	</xsl:template>
 
-	<xsl:template name="construct_index" >
+	<xsl:template name="construct_index">
 		<xsl:param name="author"/>
 		<xsl:param name="author_publications"/>
 		<h2> Co-author index </h2>
 			<p>
 				<table border="1">
 					<xsl:for-each select="distinct-values($author_publications/(author | editor)[not(.=$author)])">
-						<xsl:sort select="f:getLastname(f:removeIllegalCharacters(.))"/>
+						<xsl:sort select="f:getLastname(.)"/>
 						<xsl:variable name="coAuthor" select="."/>
-						<xsl:variable name="coAuthorFullname" select="f:removeIllegalCharacters(.)"/>
 						<tr>
 							<td align="right">
-								<a href="{concat('..', f:getPath($coAuthorFullname))}"><xsl:value-of select="$coAuthorFullname"/></a>
+								<a href="{concat('..', f:getPath(.))}"><xsl:value-of select="$coAuthor"/></a>
 							</td>
 							<td align="left">
 								<xsl:for-each select="$author_publications">
