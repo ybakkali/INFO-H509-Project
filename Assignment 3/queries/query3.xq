@@ -18,10 +18,9 @@ declare function local:explore($author as xs:string, $authors as xs:string*, $di
   let $coauthors := local:getAllCoAuthor($authors, ($checked_authors, $author))
   let $checked := ($coauthors, $checked_authors)
   return (
-    local:print($author, $coauthors, $distance)
     if (not(empty($coauthors))) then (
-      local:explore($author, $coauthors, $distance+1, $checked)
-    ) else ()
+      local:print($author, $coauthors, $distance), local:explore($author, $coauthors, $distance+1, $checked)
+    ) else (local:print($author, $coauthors, $distance))
   )
 };
 
