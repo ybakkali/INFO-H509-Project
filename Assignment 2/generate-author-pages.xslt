@@ -199,7 +199,7 @@
 							</td>
 							<td align="left">
 								<xsl:for-each select="$author_publications">
-									<xsl:if test="./editor = $coAuthor or ./author = $coAuthor">
+									<xsl:if test="./(author | editor) = $coAuthor">
 										<xsl:variable name="pos" select="last()-position()+1"/>
 										[<a href="#p{$pos}"><xsl:value-of select="$pos"/></a>]
 									</xsl:if>
