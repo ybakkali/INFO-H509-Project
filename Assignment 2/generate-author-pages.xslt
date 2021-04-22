@@ -117,66 +117,50 @@
 							<xsl:for-each select="author | editor">
 								<a href="{concat('..', f:getPath(.))}">
 									<xsl:value-of select="."/>
-								</a>,
+								</a>
+								<xsl:choose>
+								<xsl:when test="position()=last()">: </xsl:when>
+								<xsl:otherwise>, </xsl:otherwise>
+								</xsl:choose>
 							</xsl:for-each>
 
-							<xsl:value-of select="title"/>
+							<xsl:value-of select="title"/>&#160;
 
-							<xsl:if test="booktitle">
-							, <xsl:value-of select="booktitle"/>
-							</xsl:if>
+							<xsl:choose>
+								<xsl:when test="name()='article'">
+									<xsl:value-of select="journal"/>
+									<xsl:value-of select="volume"/>
+									<xsl:if test="number">
+										(<xsl:value-of select="number"/>)
+										<xsl:if test="pages">
+											: <xsl:value-of select="pages"/>
+										</xsl:if>
+									</xsl:if>
+									<xsl:if test="year">
+										(<xsl:value-of select="year"/>)
+									</xsl:if>
+								</xsl:when>
 
-							<xsl:if test="pages">
-							, <xsl:value-of select="pages"/>
-							</xsl:if>
+								<xsl:when test="name()='book'">
+									<xsl:value-of select="publisher"/>&#160;
+									<xsl:value-of select="year"/>
+									<xsl:if test="isbn">
+										, ISBN <xsl:value-of select="isbn"/>
+									</xsl:if>
+								</xsl:when>
 
-							<xsl:if test="year">
-							, <xsl:value-of select="year"/>
-							</xsl:if>
+								<xsl:when test="name()='proceedings'">
 
-							<xsl:if test="address">
-							, <xsl:value-of select="address"/>
-							</xsl:if>
+								</xsl:when>
 
-							<xsl:if test="journal">
-							, <xsl:value-of select="journal"/>
-							</xsl:if>
+								<xsl:when test="name()='inproceedings'">
 
-							<xsl:if test="volume">
-							, <xsl:value-of select="volume"/>
-							</xsl:if>
+								</xsl:when>
 
-							<xsl:if test="number">
-							, <xsl:value-of select="number"/>
-							</xsl:if>
+								<xsl:when test="name()='idk'">
 
-							<xsl:if test="month">
-							, <xsl:value-of select="month"/>
-							</xsl:if>
-
-							<xsl:if test="publisher">
-							, <xsl:value-of select="publisher"/>
-							</xsl:if>
-
-							<xsl:if test="note">
-							, <xsl:value-of select="note"/>
-							</xsl:if>
-
-							<xsl:if test="isbn">
-							, ISBN <xsl:value-of select="isbn"/>
-							</xsl:if>
-
-							<xsl:if test="series">
-							, <xsl:value-of select="series"/>
-							</xsl:if>
-
-							<xsl:if test="school">
-							, <xsl:value-of select="school"/>
-							</xsl:if>
-
-							<xsl:if test="chapter">
-							, <xsl:value-of select="chapter"/>
-							</xsl:if>
+								</xsl:when>
+							</xsl:choose>
 						</td>
 					</tr>
 				</xsl:for-each>
