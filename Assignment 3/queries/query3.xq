@@ -1,32 +1,32 @@
 declare option saxon:output "indent=yes";
 declare variable $root := .;
 
-declare function local:print($author as xs:string, $authors as xs:string*, $distance as xs:integer)
+declare function local:print($author as xs:string,
+                             $authors as xs:string*,
+                             $distance as xs:integer)
 {
   for $coauthor in $authors
   return <distance author1="{$author}" author2="{$coauthor}" distance="{$distance}"/>
 };
 
-declare function local:getAllCoAuthor($authors as xs:string*, $checked_authors as xs:string*)
+declare function local:explore($author as xs:string,
+                               $authors as xs:string*,
+                               $checked_authors as xs:string*,
+                               $distance as xs:integer)
 {
-  let $a := distinct-values($root//*[author=$authors]/author[not(.=$authors) and not(.=$checked_authors)])
-  return $a
-};
-
-declare function local:explore($author as xs:string, $authors as xs:string*, $distance as xs:integer, $checked_authors as xs:string*)
-{
-  let $coauthors := local:getAllCoAuthor($authors, ($checked_authors, $author))
-  let $checked := ($coauthors, $checked_authors)
-  return (
+  let $coauthors := distinct-values($root//*[author=$authors]/author[not(.=($authors,$checked_authors, $author))])
+  return
     if (not(empty($coauthors))) then (
-      local:print($author, $coauthors, $distance), local:explore($author, $coauthors, $distance+1, $checked)
-    ) else (local:print($author, $coauthors, $distance))
-  )
+      local:print($author, $coauthors, $distance),
+      local:explore($author, $coauthors, ($coauthors, $checked_authors), $distance+1)
+    ) else (
+      local:print($author, $coauthors, $distance)
+    )
 };
 
 <distances>
 {
   for $author in distinct-values(//author)
-  return (local:explore($author, ($author), 1, ()))
+  return local:explore($author, ($author), (), 1)
 }
 </distances>
