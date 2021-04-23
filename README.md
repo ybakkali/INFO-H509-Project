@@ -2,7 +2,7 @@
 
 Assignment 2:
 command lines:
-- run: java -jar xslt-tool.jar generate-author-pages.xslt dblp-exceprt.xml amir_is_gay
+- run: java -jar xslt-tool.jar generate-author-pages.xslt dblp-exceprt.xml output
 
 
 Assignment 3: 
