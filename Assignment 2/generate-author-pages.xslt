@@ -28,7 +28,7 @@
 		<xsl:variable name="fullname" select="f:toAlphaNumeric($fullname)"/>
 		<xsl:variable name="lastname" select="f:getLastname($fullname)"/>
 		<xsl:variable name="firstname" select="f:getFirstname($fullname)"/>
-		<xsl:variable name="flol" select="lower-case(substring($lastname,1,1))"/>
+		<xsl:variable name="flol" select="f:getFirstLetterOfLastname($lastname)"/>
 		<xsl:value-of select="concat('/', $flol, '/', replace($lastname, ' ', '_'), '.', replace($firstname, ' ', '_'), '.html')"/>
 	</xsl:function>
 
@@ -70,7 +70,7 @@
 			<html>
 				<head>
 					<title>
-						<xsl:value-of select="$author"/>
+						Publications of <xsl:value-of select="$author"/>
 					</title>
 				</head>
 				<body>
@@ -100,7 +100,7 @@
 				<xsl:for-each select="$author_publications">
 					<xsl:variable name="pos" select="last()-position()+1"/>
 					
-					<xsl:if test="not(preceding-sibling::*[1]/year=./year) or position()=1">
+					<xsl:if test="position()=1 or not(preceding-sibling::*[1]/year=year)">
 						<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/></th></tr>
 					</xsl:if>
 
