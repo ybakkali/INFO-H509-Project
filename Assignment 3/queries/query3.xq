@@ -14,11 +14,11 @@ declare function local:explore($author as xs:string,
                                $checked_authors as xs:string*,
                                $distance as xs:integer)
 {
-  let $coauthors := distinct-values($root//*[author=$authors]/author[not(.=($authors,$checked_authors, $author))])
+  let $coauthors := distinct-values($root//*[author=$authors]/author[not(.=($authors,$checked_authors))])
   return
     if (not(empty($coauthors))) then (
       local:print($author, $coauthors, $distance),
-      local:explore($author, $coauthors, ($coauthors, $checked_authors), $distance+1)
+      local:explore($author, $coauthors, ($authors, $checked_authors), $distance+1)
     ) else (
       local:print($author, $coauthors, $distance)
     )
