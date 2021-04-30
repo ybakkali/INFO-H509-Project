@@ -1,0 +1,259 @@
+\documentclass{article}[a4]
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{float}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{listings}
+\usepackage{indentfirst}
+
+\lstset
+{
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    columns=fullflexible,
+    basicstyle=\ttfamily,
+    showstringspaces=false,
+}
+
+\definecolor{maroon}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\lstdefinelanguage{XML}
+{
+  basicstyle=\ttfamily,
+  morestring=[s]{"}{"},
+  morecomment=[s]{?}{?},
+  morecomment=[s]{!--}{--},
+  commentstyle=\color{darkgreen},
+  moredelim=[s][\color{black}]{>}{<},
+  moredelim=[s][\color{red}]{\ }{=},
+  stringstyle=\color{blue},
+  identifierstyle=\color{maroon}
+}
+
+
+%\fbox { \parbox { 1\linewidth} {}}
+
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+
+        \Huge
+        \textbf{XML and Web Technologies}
+        \vspace{0.25cm}
+
+        \LARGE
+        \textbf{INFO-H509}
+
+        \vspace{0.25cm}
+        \LARGE
+        \text{XSLT}
+
+        \vspace{0.25cm}
+        \textit{30 April 2021}
+
+        \vspace{3cm}
+           \Large
+        \textbf{BAKKALI Yahya : 000445166 \\}
+        \textbf{HAUWAERT Maxime : 000461714 \\}
+
+        \vspace{2cm}
+
+        \textsc{Université Libre de Bruxelles (ULB)}
+
+
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introduction} % TODO verifier que les queries sont bien copy paste
+
+DBLP is an online bibliographical database for computer science containing around 1 million references. Its content is publicly available in XML format. The goal of this project is to write an XSLT program that will transform a small excerpt of this data into several HTML files that emulates a part of the DBLP website, in each file a specific person's publications will be displayed as well as other useful information. In this report, all the hypotheses that have been made as well as some implementation choices.
+
+\section{Templates}
+Several templates have been used to improve the readability of the code.
+
+\subsection{Base}
+It is the base template; it creates all the pages of the authors.
+
+\begin{lstlisting}[language=XML]
+<xsl:template match="/">
+    ...
+</xsl:template>
+\end{lstlisting}
+
+It loops on all the people : \fbox{distinct-values(/dblp/*/(author $|$ editor))} and call the construct\_author\_page template with the name of the author and its publications : \fbox{/dblp/*[(author $|$ editor)=\text{\$}person]}
+
+\subsection{construct\_author\_page}
+It takes the name of the author as well as their publications and creates their page in the right directory.
+
+\begin{lstlisting}[language=XML]
+<xsl:template name="construct_author_page">
+	<xsl:param name="author"/>
+	<xsl:param name="author_publications"/>
+	...
+</xsl:template>
+\end{lstlisting}
+
+It first sorts the publications by descending year then by ascending title if they have the same year, using a perform-sort.
+
+\begin{lstlisting}[language=XML]
+<xsl:variable name="author_publications" as="element()+">
+	<xsl:perform-sort select="$author_publications">
+		<xsl:sort select="year" data-type="number" order="descending"/>
+		<xsl:sort select="title" order="ascending"/>
+	</xsl:perform-sort>
+</xsl:variable>
+\end{lstlisting}
+
+Then it calls the construct\_table and construct\_index templates.
+
+
+\subsection{construct\_table}
+It takes the name of the author as well as their publications and creates a table that contains all their publications grouped by year sorted by titles.
+
+\begin{lstlisting}[language=XML]
+<xsl:template name="construct_table">
+	<xsl:param name="author"/>
+	<xsl:param name="author_publications"/>
+	...
+</xsl:template>
+\end{lstlisting}
+
+It loops on the publications and calculates their publication number : \fbox{last()-position()+1}, then verifies if it is a new year : \fbox{position()=1 or not(preceding-sibling::*[1]/year=year)} and indicates it if it is, finally it puts the publication number, the link to the online version (if it exists) and calls the construct\_bibliographic\_reference template.
+
+\subsection{construct\_index}
+It takes the name of the author as well as their publications and creates a co-author index where for each co-author all the joint publications are referenced.
+
+\begin{lstlisting}[language=XML]
+<xsl:template name="construct_index">
+	<xsl:param name="author"/>
+	<xsl:param name="author_publications"/>
+	...
+</xsl:template>
+\end{lstlisting}
+
+It loops on all the co-authors : \fbox{distinct-values(\$author\_publications/(author $|$ editor)[not(.=\$author)])} sorted by their last names, then loops on the publications \fbox{\$author\_publications} and put its publication number if the co-author was the author or editor of the publication : \fbox{./(author $|$ editor) = \$coAuthor}.
+
+\subsection{construct\_bibliographic\_reference}
+It takes a publication and creates its bibliographic reference. 
+
+\begin{lstlisting}[language=XML]
+<xsl:template name="construct_bibliographic_reference">
+	<xsl:param name="publication"/>
+	...
+</xsl:template>
+\end{lstlisting}
+
+It goes through all the fields of the publication and put all of them in a format that looks like the one of the DBLP website.
+
+\section{Functions}
+Several functions had to be created to reduce code duplication as well as to improve readability.
+
+\subsection{getFirstname}
+
+It takes a full name and return only the first name. The first name has been defined as the part of the full name before the first space.
+
+\begin{lstlisting}[language=XML]
+<xsl:function name="f:getFirstname">
+	<xsl:param name="fullname"/>
+	<xsl:value-of select="substring-before($fullname, ' ')"/>
+</xsl:function>
+\end{lstlisting}
+
+\texttt{Example} : \fbox{f:getFirstname("David Maier")} returns \fbox{"David"}
+
+
+\subsection{getLastname}
+
+It takes a full name and return only the last name. The last name has been defined as the part of the full name after the first space. If the last name was defined by the part of the full name after the last space, the middle name would have been excluded but it would have created some collisions, two different people having the same first and last names but a different middle name.
+
+\begin{lstlisting}[language=XML]
+<xsl:function name="f:getLastname">
+	<xsl:param name="fullname"/>
+	<xsl:value-of select="substring-after($fullname, ' ')"/>
+</xsl:function>
+\end{lstlisting}
+
+\texttt{Example} : \fbox{f:getLastname("David Maier")} returns \fbox{"Maier"}
+
+\subsection{getFirstLetterOfLastname}
+
+It takes a last name and return only the first letter and set it to lowercase.
+
+\begin{lstlisting}[language=XML]
+<xsl:function name="f:getFirstLetterOfLastname">
+	<xsl:param name="lastname"/>
+	<xsl:value-of select="lower-case(substring($lastname,1,1))"/>
+</xsl:function>
+\end{lstlisting}
+
+\texttt{Example} : \fbox{f:getFirstLetterOfLastname("Maier")} returns \fbox{"m"}
+
+\subsection{getPath}
+It takes a full name and return the path as described in the assignment.\\ \textbf{/first-letter-of-lastname/lastname.firstname.html}
+
+\begin{lstlisting}[language=XML]
+<xsl:function name="f:getPath">
+	<xsl:param name="fullname"/>
+	<xsl:variable name="fullname" select="f:toAlphaNumeric($fullname)"/>
+	<xsl:variable name="lastname" select="f:getLastname($fullname)"/>
+	<xsl:variable name="firstname" select="f:getFirstname($fullname)"/>
+	<xsl:variable name="flol" select="f:getFirstLetterOfLastname($lastname)"/>
+	<xsl:value-of select="concat('/', $flol, '/', replace($lastname, ' ', '_'), '.', replace($firstname, ' ', '_'), '.html')"/>
+</xsl:function>
+\end{lstlisting}
+
+\texttt{Example} : \fbox{f:getPath("David Maier")} returns \fbox{"/m/Maier.David.html"}
+
+\subsection{toAlphaNumeric}
+
+It takes a string and return it with all its non alpha-numeric letters, except spaces and underscores, replaced by an equal sign.
+
+\begin{lstlisting}[language=XML]
+<xsl:function name="f:toAlphaNumeric">
+	<xsl:param name="s"/>
+	<xsl:value-of select="replace($s, '[^a-zA-Z0-9_ ]' ,'=')"/>
+</xsl:function>
+\end{lstlisting}
+
+\texttt{Example} : \fbox{f:toAlphaNumeric("José")} returns \fbox{"Jos="}
+
+\section{Character map}
+In the given excerpt of the DBLP database the character, decimal 150, was present in the names of some the people. The problem is that this character is illegal in HTML, so to tackle this problem a character map was used. It replaces this character with an underscore.
+
+\begin{lstlisting}[language=XML]
+<xsl:character-map name="illegalCharacters">
+	<xsl:output-character character="&#150;" string="_"/>
+</xsl:character-map>
+\end{lstlisting}
+
+There is obviously more than one character that are illegal in HTML but to keep it simple, it has been decided to only take care of the decimal 150 character as it is the only present in the excerpt. In the future if more of these characters are added, they just have to be added in this map.
+
+\section{Program manual}
+
+To launch the program, the following command should be executed :
+\begin{lstlisting}[frame=lines]
+$ java -jar xslt-tool.jar generate-author-pages.xslt input_file null
+\end{lstlisting}
+
+It will create all the requested files in the dblp directory.
+
+\texttt{input\_file} should be replaced by the DBLP XML filename path that you want.
+
+\texttt{Note} : the program requires an output\_file argument but the XSLT will not write anything on it, it can be replaced by anything but must nevertheless be present.
+
+\texttt{Example} : 
+\begin{lstlisting}[frame=lines]
+$ java -jar xslt-tool.jar generate-author-pages.xslt dblp-exceprt.xml null
+\end{lstlisting}
+
+\end{document}
