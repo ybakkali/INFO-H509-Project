@@ -67,7 +67,9 @@
 DBLP is an online bibliographical database for computer science containing around 1 million references. Its content is publicly available in XML format. The goal of this project is to write a XQuery program for each query performed on a small excerpt of this data. In this report, all the hypotheses that have been made as well as the explanations of the XQuery programs will be seen.
 
 \section{XQuery programs}
-In this section, each program is described, and the requested output format is indicated. In addition, the blocks of the format are highlighted to show the different tags. The highlighting is used to make the link between the format and the solution of the query. Since some solutions can be complex, highlighting allows to refer in the solution to where each block is processed.
+In this section, each program is described, and the requested output format is indicated. In addition, the blocks of the format are highlighted to show the different tags. The highlighting is used to make the link between the format and the solution of the query. Since some solutions can be complex, highlighting allows to refer in the solution to where each block is processed.\\
+
+In all the queries an hypothesis has been made about the authors. The terms ``author" and ``co-author" only refer to the tag $<$author/$>$ and not $<$editor/$>$.
 
 \subsection{Program 1}
 \begin{lstlisting}[language=xml, escapechar=!]
@@ -186,7 +188,7 @@ declare function local:explore($author as xs:string,$authors as xs:string*, $che
 \end{lstlisting}
 \subsubsection{Explanation}
 
-For this query, it was decided to consider the file as a graph of co-authors whose distance can be calculated by exploring the paths. The breadth-first search algorithm was used to obtain for each author all the distances between him and all other authors that can be reached. Below is a pseudo-code of how the algorithm was designed and implemented in the XQuery program. 
+For this query, it was decided to consider the file as a graph of co-authors whose distance can be calculated by exploring the paths. The breadth-first search algorithm was used to obtain for each author all the distances between him and all other authors that can be reached. Below is a pseudo-code of how the algorithm was designed and implemented in the XQuery program.
 
 \begin{algorithm}[H]
 \caption{$Explore(author, authors, checked\_authors, distance)$}
@@ -211,12 +213,16 @@ For this query, it was decided to consider the file as a graph of co-authors who
 \end{algorithmic}
 \end{algorithm}
 
+The output file will contain duplicated pairs. Such that for a pair of authors $a_1$ and $a_2$ separated by a distance of 1, the two entries $<$distance author1=``$a_1$" author2=``$a_2$' distance=``1"/$>$ and $<$distance author1=``$a_2$" author2=``$a_1$" distance=``1"/$>$ will be generated.
+
 \section{Program manual}
 
-For executing these queries above, the following command line can be used.
+The queries above have been implemented in a way that they can be executed via this command line.
 
 \begin{lstlisting}[frame=lines]
-    $  java -cp saxon9he.jar net.sf.saxon.Query -s:"dblp-excerpt.xml" -q:"query1.xq" -o:"output.xml"
+    $  java -cp saxon9he.jar net.sf.saxon.Query -s:"dblp-excerpt.xml" -q:"query_filename" -o:"output.xml"
 \end{lstlisting}
+
+Where ``query\_filename" is the path to the file that contains the query that will be executed.
 
 \end{document}
