@@ -1,0 +1,38 @@
+PREFIX aida35kschema: <http://aida.kmi.open.ac.uk/aida35k/ontology#>
+SELECT DISTINCT ?Affiliation
+WHERE {
+    ?ad aida35kschema:hasAffiliation ?Affiliation.
+}
+
+
+PREFIX aida35kschema: <http://aida.kmi.open.ac.uk/aida35k/ontology#>
+SELECT (COUNT(DISTINCT ?cso) AS ?NbCsoTopics)
+WHERE {
+    ?a aida35kschema:hasCsoEnhancedTopic ?cso.
+}
+
+
+PREFIX aida35kschema: <http://aida.kmi.open.ac.uk/aida35k/ontology#>
+SELECT (?cso as ?CsoTopic) (COUNT(?p) as ?Nb)
+WHERE {
+	?p aida35kschema:hasCsoEnhancedTopic ?cso.
+} GROUP BY ?cso ORDER BY DESC(?Nb) LIMIT 10
+
+
+PREFIX aida35kschema: <http://aida.kmi.open.ac.uk/aida35k/ontology#>
+SELECT (?paper as ?Paper) (COUNT(?r) as ?Nb)
+WHERE { 
+	?paper aida35kschema:hasConfSeries ?s.
+    FILTER (?s = "iswc")
+    ?paper aida35kschema:hasReference ?r.
+} GROUP BY ?paper ORDER BY DESC(?Nb)
+
+
+PREFIX aida35kschema: <http://aida.kmi.open.ac.uk/aida35k/ontology#>
+SELECT (?author as ?Author) (?paper as ?Paper)
+WHERE {
+    ?aff aida35kschema:hasAffiliation ?name.
+    FILTER (?name = "université_libre_de_bruxelles").
+    ?paper aida35kschema:hasAffiliationDistribution ?aff.
+    ?paper aida35kschema:hasAuthor ?author.
+}

@@ -1,0 +1,126 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix cso: <http://cso.kmi.open.ac.uk/schema/cso#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix aida: <http://aida.kmi.open.ac.uk/resource/> .
+@prefix aida35k: <http://aida.kmi.open.ac.uk/aida35k/resource/> .
+@prefix aida35kschema: <http://aida.kmi.open.ac.uk/aida35k/ontology#> .
+@prefix aida: <http://aida.kmi.open.ac.uk/resource/> .
+@prefix mag: <http://ma-graph.org/entity/> .
+@prefix owl: <http://www.w3.org/2002/07/owl/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Author
+
+aida35kschema:hasPaper rdfs:domain aida35kschema:author ;
+					rdfs:range aida35kschema:paper .
+
+aida35kschema:hasWorkedInDistribution rdfs:domain aida35kschema:author ;
+								rdfs:range aida35kschema:countryDistribution .
+
+aida35kschema:hasNetworkInDistribution 	rdfs:domain aida35kschema:author ;
+									rdfs:range aida35kschema:affiliationDistribution .
+
+aida35kschema:author owl:sameAs aida:author .
+
+aida35kschema:author owl:sameAs mag:author .
+
+# CountryDistribution
+
+aida35kschema:hasCountry 	rdfs:domain aida35kschema:countryDistribution ;
+					rdfs:range rdfs:Literal .
+
+aida35kschema:hasCountry-weight 	rdfs:domain aida35kschema:countryDistribution ;
+							rdfs:range xsd:float .
+
+
+# AffiliationDistribution
+
+aida35kschema:hasAffiliation 	rdfs:domain aida35kschema:affiliationDistribution ;
+						rdfs:range rdfs:Literal .
+
+aida35kschema:hasAffiliation-weight 	rdfs:domain aida35kschema:affiliationDistribution ;
+								rdfs:range xsd:float .
+
+
+# CitationsDistribution
+
+aida35kschema:hasCitationByYear 	rdfs:domain aida35kschema:citationsDistribution ;
+							rdfs:range rdfs:Literal .
+
+aida35kschema:hasCitationByYear-weight	rdfs:domain aida35kschema:citationsDistribution ;
+									rdfs:range xsd:float .
+
+
+# GRIDTypeDistribution
+
+aida35kschema:hasGridType	rdfs:domain aida35kschema:gridTypeDistribution ;
+					rdfs:range rdfs:Literal .
+
+aida35kschema:hasGridType-weight	rdfs:domain aida35kschema:gridTypeDistribution ;
+							rdfs:range xsd:float .
+
+
+# Paper
+
+aida35kschema:hasAuthor	rdfs:domain aida35kschema:paper ;
+					rdfs:range aida35kschema:author .
+
+aida35kschema:hasReference	rdfs:domain aida35kschema:paper ;
+						rdfs:range aida35kschema:paper .
+
+aida35kschema:hasAffiliationDistribution	rdfs:domain aida35kschema:paper ;
+									rdfs:range aida35kschema:affiliationDistribution .
+
+aida35kschema:hasGridTypeDistribution	rdfs:domain	aida35kschema:paper ;
+								rdfs:range aida35kschema:gridTypeDistribution .
+
+aida35kschema:hasCitationDistribution	rdfs:domain aida35kschema:paper ;
+								rdfs:range aida35kschema:citationsDistribution .
+
+aida35kschema:hasCountryDistribution	rdfs:domain aida35kschema:paper ;
+								rdfs:range aida35kschema:countryDistribution .
+
+aida35kschema:hasIndustrialSector	rdfs:domain aida35kschema:paper ;
+							rdfs:range rdfs:Literal .
+
+aida35kschema:hasType	rdfs:domain aida35kschema:paper ;
+				rdfs:range rdfs:Literal .
+
+aida35kschema:hasCsoEnhancedTopic	rdfs:domain aida35kschema:paper ;
+							rdfs:range cso:Topic .
+
+aida35kschema:hasEntityType	rdfs:domain aida35kschema:paper ;
+						rdfs:range rdfs:Literal .
+
+aida35kschema:hasIndustrialSector	rdfs:domain aida35kschema:paper ;
+							rdfs:range rdfs:Literal .
+
+aida35kschema:hasConfName	rdfs:domain aida35kschema:paper ;
+					rdfs:range rdfs:Literal .
+
+aida35kschema:hasConfSeries	rdfs:domain aida35kschema:paper ;
+						rdfs:range rdfs:Literal .
+
+aida35kschema:hasJourName	rdfs:domain aida35kschema:paper ;
+					rdfs:range rdfs:Literal .
+
+aida35kschema:hasYear	rdfs:domain aida35kschema:paper ;
+				rdfs:range rdfs:Literal .
+
+aida35kschema:paper owl:sameAs aida:paper .
+
+aida35kschema:paper owl:sameAs mag:paper .
+
+
+# Extra
+
+aida35kschema:hasPaper	owl:inverseOf aida35kschema:hasAuthor .
+
+aida35kschema:hasYear rdf:type owl:FunctionalProperty .
+
+
+#aida35kschema:paper	rdf:type owl:Class ;
+#				rdfs:subClassOf owl:Thing .
+
+#aida35kschema:author	rdf:type owl:Class ;
+#				rdfs:subClassOf owl:Thing .
