@@ -36,3 +36,43 @@ WHERE {
     ?paper aida35kschema:hasAffiliationDistribution ?aff.
     ?paper aida35kschema:hasAuthor ?author.
 }
+
+
+PREFIX dcterms: <http://purl.org/dc/terms/>
+SELECT ?abstract
+WHERE {
+    SERVICE <https://makg.org/sparql>
+    {
+        SELECT ?abstract
+        WHERE {
+            <https://makg.org/entity/1642143707> dcterms:abstract ?abstract.
+        }
+    }
+}
+
+
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX aida35kschema: <http://aida.kmi.open.ac.uk/aida35k/ontology#>
+SELECT ?abstract
+WHERE {
+    { 	SELECT ?newURI
+        WHERE {
+            ?aff aida35kschema:hasAffiliation ?name.
+            FILTER (?name = "université_libre_de_bruxelles").
+            ?paper aida35kschema:hasAffiliationDistribution ?aff.
+            BIND (STR(?paper) as ?strURI)
+            BIND (REPLACE(STR(?paper), "http://aida.kmi.open.ac.uk/aida35k/resource/p_", "https://makg.org/entity/") as ?strNewURI)
+            BIND (URI(?strNewURI) as ?newURI)
+        }
+    }
+        
+    SERVICE <https://makg.org/sparql>
+    {
+        SELECT ?newURI ?abstract
+        WHERE {
+            ?newURI dcterms:abstract ?abstract.
+        }
+    }
+}
+
+
