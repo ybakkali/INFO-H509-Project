@@ -68,7 +68,7 @@ WHERE {
         
     SERVICE <https://makg.org/sparql>
     {
-        SELECT ?newURI ?abstract
+        SELECT ?abstract
         WHERE {
             ?newURI dcterms:abstract ?abstract.
         }
