@@ -17,6 +17,6 @@
   -  run: java -cp saxon9he.jar net.sf.saxon.Query -s:"dblp-exceprt.xml" -q:"query2.xq" -o:"out_temp.xml"
   -  format: xmllint --format out_temp.xml   
   
-## Project 4: RDF, RDFS, OWL, and SPARQL
+## Project 4: RDF, RDFS, OWL and SPARQL
 - [Assignment](Assignment%204/Assignment4.pdf)
 - [Report](Assignment%204/Report/INFO_H509.pdf)
